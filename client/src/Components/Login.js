@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Login.css'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
@@ -13,11 +14,39 @@ function Login() {
         const value = event.target.value
         setFormData({...formData, [key]: value})
     }
+
+    const navigate = useNavigate()
+
+    const handleLogin = (event) => {
+        event.preventDefault()
+
+        fetch('/login', {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(formData)
+        })
+        .then((response) => {
+            if (response.ok){
+                return response.json()
+            }else{
+                window.alert('Response Error')
+            }
+        })
+        .then((data) => {
+            if (data.is_admin){
+                navigate('/admin')
+            }else{
+                navigate('/home')
+            }
+        })
+    }
   return (
     <div className='login'>
         <div className='login-container'>
             <h1 className='login-heading'>Welcome Back !</h1>
-            <form className='login-form'>
+            <form className='login-form' onSubmit={handleLogin}>
                 <h2>Login</h2>
                 <input 
                     name='email'
@@ -39,7 +68,7 @@ function Login() {
                     <a href='/forgotpassword' >Forgot password ?</a>
                 </div>
             
-                <button className='button'>
+                <button className='button' type='submit'>
                     Sign in
                 </button>
 

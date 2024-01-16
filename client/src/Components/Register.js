@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Register.css'
+import {useNavigate} from 'react-router-dom'
 
 function Register() {
 
@@ -18,11 +19,42 @@ function Register() {
         const value = event.target.value
         setFormData({ ...formData, [key]: value })
     }
+
+    const navigate = useNavigate()
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        if (formData.password == formData.confirmPassword){
+            fetch('/register',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(formData)
+            })
+            .then((response) => {
+                if (response.ok){
+                    response.json()
+                }else{
+                    window.alert('Network response was not ok')
+                }
+
+            })
+            .then((data) => {
+                window.alert('Account created successfully')
+                navigate('/login')
+            })
+        } else{
+            window.alert('password is not same')
+        }
+        
+    }
     return (
         <div className='register'>
             <div className='form-container'>
                 <h1 className='heading'>Denite Online Store</h1>
-                <form className='form'>
+                <form className='form' onSubmit={handleSubmit}>
                     <h2>Create an account</h2>
                     <input
                         name='firstname'
