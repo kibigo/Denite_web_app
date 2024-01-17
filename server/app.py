@@ -31,8 +31,7 @@ class Register(Resource):
         phone = request.json['phone']
         email = request.json['email']
         password = request.json['password']
-        is_admin = request.json['is_admin']
-
+     
         user = Customer.query.filter_by(email=email).first()
 
         if user:
@@ -51,8 +50,7 @@ class Register(Resource):
                 lastname = lastname,
                 phone = phone,
                 email = email,
-                password = hashed_password,
-                is_admin = is_admin
+                password = hashed_password
             )
 
             db.session.add(new_user)
@@ -116,6 +114,36 @@ class Login(Resource):
         return response
     
 api.add_resource(Login, '/login')
+
+class GetProduct(Resource):
+
+    @staticmethod
+    def get():
+        customer_list = [item.to_dict() for item in Product.query.all()]
+
+        response = make_response(
+            jsonify(customer_list)
+        )
+
+        return response
+
+api.add_resource(GetProduct, '/products')
+
+class Product_By_Category(Resource):
+
+    @staticmethod
+    def get():
+
+        category_given = request.json['category']
+        filtered_data = [item.to_dict() for item in Product.query.filter_by(category = category_given).all()]
+
+        response = make_response(
+            jsonify(filtered_data)
+        )
+
+        return response
+
+api.add_resource(Product_By_Category, '/category')
 
 if __name__ == '__main__':
     app.run(debug=True)

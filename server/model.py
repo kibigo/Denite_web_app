@@ -15,7 +15,7 @@ class Customer(db.Model, SerializerMixin):
     phone = db.Column(db.Integer, nullable = False)
     email= db.Column(db.String, unique = True)
     password = db.Column(db.String, nullable = False)
-    is_admin = db.Column(db.Boolean, nullable = False)
+    is_admin = db.Column(db.Boolean, default = False, nullable = False)
     created_at = db.Column(db.DateTime(), server_default = db.func.now())
 
     order = db.relationship('Order', backref = 'customer_orders', lazy = True)
@@ -42,10 +42,10 @@ class Product(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
-    description = db.Column(db.String, nullable = False)
+    category = db.Column(db.String, nullable = False)
+    weight = db.Column(db.String, nullable = False)
     price = db.Column(db.Integer, nullable = False)
-    stock_quantity = db.Column(db.Integer)
-    category = db.Column(db.String)
+    imageurl = db.Column(db.String, nullable = False)
 
     favourite = db.relationship('Favourite', backref='product_favourites', lazy = True)
     review = db.relationship('Review', backref='product_reviews', lazy = True)
