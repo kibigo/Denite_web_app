@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from flask_bcrypt import Bcrypt
-from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review
+from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review, TopBrands, TopCategory, FeaturedBrands
 
 
 app = Flask(__name__)
@@ -144,6 +144,125 @@ class Product_By_Category(Resource):
         return response
 
 api.add_resource(Product_By_Category, '/category')
+
+
+class Order(Resource):
+
+    @staticmethod
+    def get():
+        order_list = [item.to_dict() for item in Order.query.all()]
+        response = make_response(
+            jsonify(order_list)
+        )
+        return response
+    
+    @staticmethod
+    def post():
+        user_id = request.json['user_id']
+        total_amount = request.json['total_amount']
+
+        new_order = Order(
+            user_id = user_id,
+            total_amount = total_amount
+        )
+        db.session.add(new_order)
+        db.session.commit()
+
+        order_data = {
+            "id":new_order.id,
+            "user_id":new_order.user_id,
+            "total_amount": new_order.total_amount,
+            "order_date":new_order.order_date
+        }
+
+        response = make_response(
+            jsonify(order_data)
+        )
+
+        return response
+
+api.add_resource(Order, '/orders')
+
+
+class OrderById(Resource):
+
+    @staticmethod
+    def get(id):
+        single_order = Order.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            jsonify(single_order)
+        )
+
+        return response
+    
+    @staticmethod
+    def patch(id):
+        single_order = Order.query.filter_by(id=id).first()
+        
+        for attr in request.form:
+            setattr(single_order, attr, request.form[attr])
+        
+        db.session.add(single_order)
+        db.session.commit()
+
+        response_dict = single_order.to_dict()
+
+        response = make_response(
+            jsonify(response_dict)
+        )
+
+        return response
+    
+    @staticmethod
+    def delete(id):
+        data = Order.query.filter_by(id=id).first()
+
+        db.session.delete(data)
+        db.session.commit()
+
+        response_data = {
+            "message":"Data deleted"
+        }
+        
+        response = make_response(
+            jsonify(response_data)
+        )
+
+        return response
+    
+api.add_resource(OrderById, '/orders/<int:id>')
+
+
+class Topcategory(Resource):
+
+    @staticmethod
+    def get():
+        item_list = [item.to_dict() for item in TopCategory.query.all()]
+
+        response = make_response(
+            jsonify(item_list)
+        )
+        return response
+
+api.add_resource(Topcategory, '/topcategory')
+
+
+class Featuredbrands(Resource):
+
+    @staticmethod
+    def get():
+        item_list = [item.to_dict() for item in FeaturedBrands.query.all()]
+        response = make_response(
+            jsonify(item_list)
+        )
+
+        return response
+
+api.add_resource(Featuredbrands, '/featuredbrands')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

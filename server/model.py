@@ -59,6 +59,39 @@ class Product(db.Model, SerializerMixin):
             raise ValueError('Name cannot be empty')
         return name
 
+class TopCategory(db.Model, SerializerMixin):
+    __tablename__ = 'topcategories'
+
+    id = db.Column(db.Integer, primary_key = True)
+    imageurl = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable = False)
+
+    def __repr__(self):
+        return f"Name: {self.name}"
+
+class FeaturedBrands(db.Model, SerializerMixin):
+    __tablename__ = 'featuredbrands'
+
+    id = db.Column(db.Integer, primary_key = True)
+    imageurl = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable = False)
+
+    def __repr__(self):
+        return f"Name: {self.name}"
+
+
+class TopBrands(db.Model, SerializerMixin):
+    __tablename__ = 'topbrands'
+
+    id = db.Column(db.Integer, primary_key = True)
+    imageurl = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable = False)
+
+    def __repr__(self):
+        return f"Name: {self.name}"
+
+
+
 class Order(db.Model, SerializerMixin):
     __tablename__ = "orders"
 
