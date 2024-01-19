@@ -1,19 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import TopCategoriesPart, { TopCategoriesPage } from "./TopCategoriesPart";
-import FruitsVegPage from "./FVHomePage";
-import FeaturedBrandsPage from "./FeaturedBrandsPage";
-
-const HomePage = () => {
+function Home() {
   return (
     <div>
-      <TopCategoriesPage/>
-      <FruitsVegPage />
-      <FeaturedBrandsPage />
-      
-      
+      <h1>Home</h1>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default Home
