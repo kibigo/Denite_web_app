@@ -1,0 +1,51 @@
+.admin{
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    height: 100vh;
+}
+
+.content-header{
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-content{
+    background-color: #fff;
+    flex: 1;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+
+.header-title{
+    color: #526d82;
+}
+
+.card-container{
+    display: flex;
+    gap: 200px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.card{
+    flex: 1;
+    display: flex;
+    background: #dde6ed;
+    padding: 20px;
+    border-radius: 10px;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
