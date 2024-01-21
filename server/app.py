@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from flask_bcrypt import Bcrypt
-from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review, TopBrands, TopCategory, FeaturedBrands
+from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review, TopCategory, FeaturedBrands
 
 
 app = Flask(__name__)
@@ -115,14 +115,48 @@ class Login(Resource):
     
 api.add_resource(Login, '/login')
 
+
+class GetUser(Resource):
+
+    @staticmethod
+    def get():
+        user_details = [user.to_dict() for user in Customer.query.all()]
+
+        response = make_response(
+            jsonify(user_details)
+        )
+
+        return response
+
+api.add_resource(GetUser, '/user')
+
+class GetUserById(Resource):
+
+    @staticmethod
+    def get(id):
+        single_user = Customer.query.filter_by(id = id).first()
+        response_data = {
+            "id":single_user.id,
+            "firstname":single_user.firstname,
+            "lastname":single_user.lastname,
+            "phone":single_user.phone,
+            "email":single_user.email,
+            "password":single_user.password
+        }
+        response = make_response(
+            jsonify(response_data)
+        )
+        return response
+api.add_resource(GetUserById, '/user/<int:id>')
+
 class GetProduct(Resource):
 
     @staticmethod
     def get():
-        customer_list = [item.to_dict() for item in Product.query.all()]
+        list = [item.to_dict() for item in Product.query.all()]
 
         response = make_response(
-            jsonify(customer_list)
+            jsonify(list)
         )
 
         return response
@@ -261,7 +295,19 @@ class Featuredbrands(Resource):
 
 api.add_resource(Featuredbrands, '/featuredbrands')
 
+class GetPayments(Resource):
 
+    @staticmethod
+    def get():
+        payment_list = [pay.to_dict() for pay in Payment.query.all()]
+        
+        response_data = make_response(
+            jsonify(payment_list)
+        )
+
+        return response_data
+
+api.add_resource(GetPayments, '/payment')
 
 
 if __name__ == '__main__':

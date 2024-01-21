@@ -45,6 +45,7 @@ class Product(db.Model, SerializerMixin):
     category = db.Column(db.String, nullable = False)
     weight = db.Column(db.String, nullable = False)
     price = db.Column(db.Integer, nullable = False)
+    quantity = db.Column(db.Integer, nullable = False)
     imageurl = db.Column(db.String, nullable = False)
 
     favourite = db.relationship('Favourite', backref='product_favourites', lazy = True)
@@ -71,17 +72,6 @@ class TopCategory(db.Model, SerializerMixin):
 
 class FeaturedBrands(db.Model, SerializerMixin):
     __tablename__ = 'featuredbrands'
-
-    id = db.Column(db.Integer, primary_key = True)
-    imageurl = db.Column(db.String, nullable=False)
-    name = db.Column(db.String, nullable = False)
-
-    def __repr__(self):
-        return f"Name: {self.name}"
-
-
-class TopBrands(db.Model, SerializerMixin):
-    __tablename__ = 'topbrands'
 
     id = db.Column(db.Integer, primary_key = True)
     imageurl = db.Column(db.String, nullable=False)
