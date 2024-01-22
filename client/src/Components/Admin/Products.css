@@ -16,7 +16,9 @@
 
 .products_table{
     width: 90%;
-}
+    border: 1px solid black;
+} 
+
 
 .products_table, th{
     border: 1px solid black;
@@ -24,9 +26,10 @@
     margin-top: 30px;
     margin: auto;
     text-align: center;
-}
+} 
 
 .products_table th, td{
+    border: 1px solid black;
     text-align: center;
     padding: 10px;
 }

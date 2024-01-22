@@ -1,31 +1,46 @@
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom"
-import Register from './Components/Register';
-import Login from './Components/Login';
-import Home from './Components/Home';
-import Admin from './Components/Admin/Admin';
-import Team from './Components/Admin/Team';
-import Products from './Components/Admin/Products';
-import Report from './Components/Admin/Report';
+import { Navbar } from './Components/Homepage/Navbar';
+import Footer from './Components/Homepage/Footer';
+import AppRoutes from './AppRoutes';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 
 function App() {
+  const navigate = useNavigate()
+
+  const excludePaths = ['/', '/login', '/admin', '/admin/team', '/admin/products', '/admin/report']
+
+  const shouldDisplayNavbarFooter = !excludePaths.includes(window.location.pathname)
+
+  const [cart, setCart] = useState([])
+
+  const handleAddToCart = (newproduct) => {
+    const existingProduct = cart.find((item) => item.product.id == newproduct.id)
+
+    if (existingProduct){
+      const latestProduct = cart.map((item) => 
+      item.product.id == newproduct.id ? {
+        ...item, quantity: item.quantity + 1} : item
+        )
+        setCart(latestProduct)
+    }
+    else{
+      setCart([...cart, {product: newproduct, quantity: 1}])
+    }
+  }
+
   return (
     <div className="App">
-      <BrowserRouter>
-
-        <Routes>
-
-          <Route path='/' element={<Register />}/>
-          <Route path='/login' element={<Login />}/>
-          <Route path='/home' element={<Home />}/>
-          <Route path='/admin' element={<Admin />}/>
-          <Route path='/admin/team' element={<Team />}/>
-          <Route path='/admin/products' element={<Products />}/>
-          <Route path='/admin/report' element={<Report />}/>
-
-        </Routes>
-
-      </BrowserRouter>
+      {shouldDisplayNavbarFooter && (
+        <div>
+          <Navbar cart={cart}/>
+        </div>
+      )}
+      <div className='main-content'>
+        <AppRoutes handleAddToCart={handleAddToCart} cart={cart} setCart={setCart}/>
+      </div>
+      {shouldDisplayNavbarFooter && <Footer />}
     </div>
   );
 }
