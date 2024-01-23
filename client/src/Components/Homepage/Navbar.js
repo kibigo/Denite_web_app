@@ -10,7 +10,7 @@ export const Navbar = ({cart}) => {
   return (
     <div className="navbar_navbar">
       <div className="navbar_logo">
-        <Link to="/home">
+        <Link to="/">
           <img src="denite1.png" alt="Denitelogo" />
         </Link>
       </div>
