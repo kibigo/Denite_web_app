@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { SidebarData } from './Sidebardata'
-import './navbar.css'
-import Products from './Products'
+import './Admin_navbar.css'
+
 
 function NavbarAdmin() {
   return (
-    <div className='sidebar'>
-        <ul className='sidebarlist'>
+    <div className='admin_sidebar'>
+        <ul className='admin_sidebarlist'>
             {SidebarData.map((data, index) => (
                 <li 
                     key={index}

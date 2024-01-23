@@ -22,9 +22,9 @@ function Card() {
         }
     ]
   return (
-    <div className='card-container'>
+    <div className='admin-card-container'>
         {pages.map((page, index) => (
-            <div className='card' key={index}>
+            <div className='admin-card' key={index}>
                 <div className='card-cover'>{page.icon}</div>
                 <div className='card-title'>
                     <h2>{page.title}</h2>

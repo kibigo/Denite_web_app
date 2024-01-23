@@ -3,47 +3,53 @@
     margin: 0;
 }
 
-.sidebar{
-    height: 110%;
+.admin_sidebar{
+    height: 100%;
     width: 250px;
     background-color: #5F4B8BFF;
   }
   
-  .sidebarlist{
+  .admin_sidebarlist{
     height: auto;
     padding: 0;
     width: 100%;
   }
-  
-  .sidebarlist .row{
-    width: 100%;
+
+  .admin_sidebarlist .row{
+    display: grid;
+    grid-template-columns: 30% 70%;
     height: 70px;
     list-style-type: none;
     margin: 0;
-    display: flex;
-    flex-direction: row;
     color: white;
     gap: 10px;
     justify-content: center;
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
-  
-  .sidebarlist .row:hover{
+  .admin_sidebarlist .row:hover{
     cursor: pointer;
     background-color: #293846;
   }
   
-  .sidebarlist #active{
+  .admin_sidebarlist #active{
     background-color: #293846;
   }
   
   .row #icon{
     flex: 30%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .row #title{
     flex: 70%;
+    display: flex;
+    align-items: center;
+  }
+
+  .row #title,
+  .row #icon{
+    font: 18px;
   }

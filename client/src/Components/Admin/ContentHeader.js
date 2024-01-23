@@ -3,7 +3,7 @@ import './Admin.css'
 
 function ContentHeader() {
   return (
-    <div className='content-header'>
+    <div className='admin-content-header'>
         <h1 className='header-title'>Dashboard</h1>
     </div>
   )

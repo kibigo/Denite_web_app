@@ -5,7 +5,7 @@
     height: 100vh;
 }
 
-.content-header{
+.admin-content-header{
     align-items: center;
     justify-content: space-between;
 }
@@ -26,16 +26,17 @@
     color: #526d82;
 }
 
-.card-container{
+.admin-card-container{
     display: flex;
-    gap: 200px;
+    gap: 300px;
     align-items: center;
     margin-top: 30px;
 }
 
-.card{
-    flex: 1;
+.admin-card{
     display: flex;
+    width: 300px;
+    height: 200px;
     background: #dde6ed;
     padding: 20px;
     border-radius: 10px;
@@ -44,7 +45,7 @@
     gap: 20px;
 }
 
-.card:hover{
+.admin-card:hover{
     transform: scale(1.05);
     cursor: pointer;
 }
