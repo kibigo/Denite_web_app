@@ -2,6 +2,17 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 export default function Details(props) {
+
+  const handleAddToCart = () => {
+    const newproduct ={
+      id:props.id,
+      name: props.name,
+      price:props.price,
+      imageurl:props.imageurl
+
+    }
+    props.handleAddToCart(newproduct)
+  }
   return (
     <div>
       <section className="vegetables-fruits">
@@ -12,7 +23,7 @@ export default function Details(props) {
         <h4>{props.name}</h4>
         {props.weight && <p>Weight: {props.weight}</p>}
         {props.price && <p className="price">Price: {props.price}</p>}
-        <Button className="cta" variant="outline-primary" onClick={props.handleAddToCart}>
+        <Button className="cta" variant="outline-primary" onClick={handleAddToCart}>
           ADD
         </Button>
         <p>{props.description}</p>

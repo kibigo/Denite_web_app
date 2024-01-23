@@ -12,6 +12,7 @@ import { Details } from "./Details";
 const FruitsVegPage = ({handleAddToCart}) => {
 
   const [fruits, setFruirts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const responsive = {
     superLargeDesktop: {
@@ -39,22 +40,23 @@ const FruitsVegPage = ({handleAddToCart}) => {
     .then((data) => {
       const filteredData = data.filter((item) => item.category == 'Fruits')
       setFruirts(filteredData)
+      setLoading(true)
     })
   }, [])
-
 
   const details = fruits.map((item) => (
     <Details
       key={item.id}
+      id={item.id}
       name={item.name}
-      url={item.imageurl}
+      imageurl={item.imageurl}
       price={item.price}
-      description={item.description}
       weight={item.weight}
       handleAddToCart={handleAddToCart}
     />
+    
   ));
-
+ 
   return (
     <div className="Container">
       <div className="shop-from-top-categories">

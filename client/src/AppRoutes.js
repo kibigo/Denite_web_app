@@ -18,21 +18,21 @@ import { Navbar } from './Components/Homepage/Navbar';
 
 
 
-function AppRoutes({handleAddToCart, cart, setCart}) {
+function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
 
   return (
     <div className="App">
         <Routes>
 
-          <Route path='/' element={<Register />}/>
+          <Route path='/register' element={<Register />}/>
           <Route path='/login' element={<Login />}/>
-          <Route path='/home' element={<HomePage handleAddToCart={handleAddToCart} />}/>
+          <Route path='/' element={<HomePage handleAddToCart={handleAddToCart} />}/>
           <Route path='/top-categories' element={<TopCategoriesPage />}/>
           <Route path='/fruits-and-vegetables' element={<FruitsVegPage handleAddToCart={handleAddToCart}/>}/>
-          <Route path='/cold-drinks-and-juices' element={<DrinksPage handleAddToCart={handleAddToCart} />}/>
-          <Route path='/snacks-and-munchies' element={<SnacksPage/>}/>
+          <Route path='/cold-drinks-and-juices' element={<DrinksPage handleAddToCart={handleAddToCart}/>}/>
+          <Route path='/snacks-and-munchies' element={<SnacksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/featured-brands' element={<FeaturedBrandsPage />}/>
-          <Route path='/cart' element={<Cart cart={cart} setCart={setCart}/>}/>
+          <Route path='/cart' element={<Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
           <Route path='/admin' element={<Admin />}/>
           <Route path='/admin/team' element={<Team />}/>
           <Route path='/admin/products' element={<Products />}/>

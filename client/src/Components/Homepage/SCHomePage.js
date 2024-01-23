@@ -41,8 +41,9 @@ const SnacksPage = ({handleAddToCart}) => {
   const details = snacks.map((item) => (
     <Details
       key={item.id}
+      id = {item.id}
       name={item.name}
-      url={item.imageurl}
+      imageurl={item.imageurl}
       price={item.price}
       description={item.description}
       weight={item.weight}

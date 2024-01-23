@@ -8,13 +8,13 @@ import SnacksPage from "./SCHomePage";
 import Banner from './Banner';
 
 
-const HomePage = () => {
+const HomePage = ({handleAddToCart}) => {
   return (
     <div>
       <Banner />
       <TopCategoriesPage/>
-      <FruitsVegPage />
-      <ColdDrinksPage/>
+      <FruitsVegPage handleAddToCart={handleAddToCart}/>
+      <ColdDrinksPage handleAddToCart={handleAddToCart}/>
       <SnacksPage/> 
       <FeaturedBrandsPage />
     </div>

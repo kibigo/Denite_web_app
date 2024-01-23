@@ -20,7 +20,7 @@ function App() {
 
     if (existingProduct){
       const latestProduct = cart.map((item) => 
-      item.product.id == newproduct.id ? {
+      item.product.id === newproduct.id ? {
         ...item, quantity: item.quantity + 1} : item
         )
         setCart(latestProduct)
@@ -30,15 +30,29 @@ function App() {
     }
   }
 
+  const removeFromCart = (cartproduct) => {
+    const updatedCart = cart.filter((item) => item.product.id !== cartproduct.id)
+    setCart(updatedCart)
+  }
+
+  const totalAmount = () => {
+    let total = 0
+
+    for (const item of cart){
+      total += item.product.price * item.quantity
+    }
+    return total
+  }
+
   return (
     <div className="App">
       {shouldDisplayNavbarFooter && (
         <div>
-          <Navbar cart={cart}/>
+          <Navbar cart={cart} setCart={setCart}/>
         </div>
       )}
       <div className='main-content'>
-        <AppRoutes handleAddToCart={handleAddToCart} cart={cart} setCart={setCart}/>
+        <AppRoutes handleAddToCart={handleAddToCart} totalAmount={totalAmount} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
       </div>
       {shouldDisplayNavbarFooter && <Footer />}
     </div>

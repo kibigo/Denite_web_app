@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-function Cart({ cart, setCart}) {
+function Cart({ cart, setCart, removeFromCart, totalAmount}) {
 
   return (
     <div className='selected-cart'>
@@ -17,7 +17,6 @@ function Cart({ cart, setCart}) {
                 <tr>
                   <th>Image</th>
                   <th>Name</th>
-                  <th>Description</th>
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Action</th>
@@ -26,9 +25,8 @@ function Cart({ cart, setCart}) {
               <tbody>
                 {cart.map((item) => (
                   <tr key={item.id}>
-                    <td> <img src={item.product.image} className='table-img'/></td>
+                    <td> <img src={item.product.imageurl} className='table-img'/></td>
                     <td>{item.product.name}</td>
-                    <td>{item.product.description}</td>
                     <td>{item.product.price}</td>
                     <td className='quantity'>
 
@@ -62,9 +60,9 @@ function Cart({ cart, setCart}) {
                       </button>
                     </td>
                     <td>
-                      {/* <button onClick={() => removeFromCart(item.product)}>
+                      <button onClick={() => removeFromCart(item.product)}>
                         Remove Item
-                      </button> */}
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -76,7 +74,7 @@ function Cart({ cart, setCart}) {
                 <td className='amount'></td>
                 <td className='amount'></td>
                 <td>
-                  {/* Total: {totalAmount()} */}
+                  Total: {totalAmount().toFixed(2)}
                 </td>
               </tr>
             </table>
