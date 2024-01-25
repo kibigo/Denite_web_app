@@ -9,7 +9,7 @@ import { useState } from 'react';
 function App() {
   const navigate = useNavigate()
 
-  const excludePaths = ['/', '/login', '/register', '/admin', '/admin/team', '/admin/products', '/admin/report']
+  const excludePaths = ['/login', '/register', '/admin', '/admin/team', '/admin/products', '/admin/report']
 
   const shouldDisplayNavbarFooter = !excludePaths.includes(window.location.pathname)
 
