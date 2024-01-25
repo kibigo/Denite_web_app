@@ -15,8 +15,10 @@ import FeaturedBrandsPage from './Components/Homepage/FeaturedBrandsPage';
 import { useState } from 'react';
 import Cart from './Components/Homepage/Cart';
 import { Navbar } from './Components/Homepage/Navbar';
-
-
+import FruitsVegetablesPage from './Components/Homepage/FruitsVegetablesPage';
+import ColdDrinksPage from './Components/Homepage/ColdDrinksPage';
+import SnacksMunchiesPage from './Components/Homepage/SnacksMunchies';
+import AllCategoriesPage from './Components/Homepage/AllCategories';
 
 function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
 
@@ -32,6 +34,10 @@ function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}
           <Route path='/cold-drinks-and-juices' element={<DrinksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/snacks-and-munchies' element={<SnacksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/featured-brands' element={<FeaturedBrandsPage />}/>
+          <Route path='/all-categories' element={<AllCategoriesPage handleAddToCart={handleAddToCart} />}/>
+          <Route path='/all-fruits' element={<FruitsVegetablesPage handleAddToCart={handleAddToCart}/>}/>
+          <Route path='/all-drinks' element={<ColdDrinksPage handleAddToCart={handleAddToCart}/>}/>
+          <Route path='/all-snacks' element={<SnacksMunchiesPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/cart' element={<Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
           <Route path='/admin' element={<Admin />}/>
           <Route path='/admin/team' element={<Team />}/>

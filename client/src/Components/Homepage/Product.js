@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Product (props) {
   return (
@@ -7,9 +8,11 @@ export default function Product (props) {
         <div className= "card">
             <img className="product--image"
             src={props.url} alt=""/>
+            
+            <Link to={props.path}>
             <h3>{props.name}</h3>
-            <p className= "price">{props.price}</p>
-            <p>{props.description}</p>
+
+            </Link>
             
             </div>
 
