@@ -11,7 +11,7 @@ export const Navbar = ({cart}) => {
     <div className="navbar_navbar">
       <div className="navbar_logo">
         <Link to="/">
-          <img src="denite1.png" alt="Denitelogo" />
+          <img src="https://i.im.ge/2024/01/24/YvyNqJ.WhatsApp-Image-2024-01-24-at-19-35-19.jpg" alt="Denitelogo" />
         </Link>
       </div>
       <div className="navbar_links">

@@ -1,8 +1,12 @@
 from flask import Flask, make_response, request, jsonify, session
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
+import requests
+import datetime
 from flask_bcrypt import Bcrypt
+import base64
+from requests.auth import HTTPBasicAuth
 from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review, TopCategory, FeaturedBrands
 
 
@@ -294,6 +298,95 @@ class Featuredbrands(Resource):
         return response
 
 api.add_resource(Featuredbrands, '/featuredbrands')
+
+class Make_Payment(Resource):
+    
+    @staticmethod
+    def post():
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('phone', type=str, required = True)
+        parser.add_argument('amount', type=str, required=True)
+        args = parser.parse_args()
+
+        phone_number = args['phone']
+        amount = args['amount']
+
+        consumer_key ="haIzzoBjE6eUAGKu4J9vBvqrEL8l3Dm2"
+        consumer_secret = "BCnrl9RpzVu19gM9"
+        api_url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+
+        r = requests.get(api_url, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+
+        data = r.json()
+
+        access_token = "Bearer " + data['access_token']
+
+        timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+
+        passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+
+        bussiness_shortcode = '174379'
+
+        data_to_encode = bussiness_shortcode + passkey + timestamp
+
+        encoded_data = base64.b64encode(data_to_encode.encode())
+
+        password = encoded_data.decode('utf-8')
+
+        request = {
+            "BusinessShortCode": bussiness_shortcode,
+            "Password": password,
+            "Timestamp": timestamp, # timestamp format: 20190317202903 yyyyMMhhmmss 
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": round(float(amount)),
+            "PartyA": f"254{phone_number[1:]}",
+            "PartyB": bussiness_shortcode,
+            "PhoneNumber": f"254{phone_number[1:]}",
+            "CallBackURL": "https://mydomain.com/pat",
+            "AccountReference": "Limited",
+            "TransactionDesc": "Payment of Jackson"
+        }
+
+        stk_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+
+        headers = {"Authorization": access_token, "Content-Type": "application/json"}
+
+        #making STK push request
+
+        response = requests.post(stk_url,json=request,headers=headers)
+
+        if response.status_code > 299:
+            mpesa_response = {
+                'message':'Failed'
+            }
+            final_response = make_response(
+                jsonify(mpesa_response)
+            )
+
+            return final_response
+        else:
+            message = {
+                'message':'Successful'
+            }
+            response = make_response(
+                jsonify(message)
+            )
+
+            new_data = Payment(
+                phone = phone_number,
+                amount = amount
+            )
+
+            db.session.add(new_data)
+            db.session.commit()
+
+            return response
+        
+        
+
+api.add_resource(Make_Payment, '/make_payment')
+
 
 class GetPayments(Resource):
 

@@ -1,8 +1,14 @@
 // MyOrder.js
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./Cart.css";
 function Cart({ cart, setCart, removeFromCart, totalAmount}) {
+
+  const navigate = useNavigate()
+
+  const handlePay = () => {
+    navigate('/cart/payment')
+  }
 
   return (
     <div className='selected-cart'>
@@ -83,6 +89,9 @@ function Cart({ cart, setCart, removeFromCart, totalAmount}) {
       )}
   
       <div className='order-summary'>
+        <button onClick={handlePay}>
+          Pay Now
+        </button>
       </div>
     </div>
   )

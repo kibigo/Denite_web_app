@@ -36,7 +36,7 @@ const AboutUsPage = () => {
               <img src="https://images.unsplash.com/photo-1515706886582-54c73c5eaf41?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block w-100" alt="..." />
             </div>
             <div className="carousel-item">
-              <img src="/Assets/banner.png" className="d-block w-100" alt="..." />
+              <img src="https://i.im.ge/2024/01/24/YvCMvh.WhatsApp-Image-2024-01-24-at-20-17-38.jpg" className="d-block w-100" alt="..." />
             </div>
           </div>
           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

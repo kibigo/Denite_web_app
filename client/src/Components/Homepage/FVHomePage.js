@@ -4,9 +4,6 @@ import "react-multi-carousel/lib/styles.css";
 import { Link } from 'react-router-dom';
 // import './Container.css'
 import './FVC.css';
-
-
-
 import { Details } from "./Details";
 
 const FruitsVegPage = ({handleAddToCart}) => {
@@ -51,6 +48,7 @@ const FruitsVegPage = ({handleAddToCart}) => {
       name={item.name}
       imageurl={item.imageurl}
       price={item.price}
+      description={item.description}
       weight={item.weight}
       handleAddToCart={handleAddToCart}
     />

@@ -19,6 +19,7 @@ import FruitsVegetablesPage from './Components/Homepage/FruitsVegetablesPage';
 import ColdDrinksPage from './Components/Homepage/ColdDrinksPage';
 import SnacksMunchiesPage from './Components/Homepage/SnacksMunchies';
 import AllCategoriesPage from './Components/Homepage/AllCategories';
+import Mpesa from './Components/Homepage/Mpesa';
 
 function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
 
@@ -39,6 +40,7 @@ function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}
           <Route path='/all-drinks' element={<ColdDrinksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/all-snacks' element={<SnacksMunchiesPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/cart' element={<Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
+          <Route path='/cart/payment' element={<Mpesa totalAmount={totalAmount}/>}/>
           <Route path='/admin' element={<Admin />}/>
           <Route path='/admin/team' element={<Team />}/>
           <Route path='/admin/products' element={<Products />}/>

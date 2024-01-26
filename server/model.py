@@ -118,6 +118,7 @@ class Payment(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
+    phone = db.Column(db.Integer)
     payment_date = db.Column(db.DateTime(), server_default=db.func.now())
     amount = db.Column(db.Integer, db.ForeignKey('orders.total_amount'))
     created_at = db.Column(db.DateTime(), server_default=db.func.now())

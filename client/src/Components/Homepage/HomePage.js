@@ -15,7 +15,7 @@ const HomePage = ({handleAddToCart}) => {
       <TopCategoriesPage/>
       <FruitsVegPage handleAddToCart={handleAddToCart}/>
       <ColdDrinksPage handleAddToCart={handleAddToCart}/>
-      <SnacksPage/> 
+      <SnacksPage handleAddToCart={handleAddToCart}/> 
       <FeaturedBrandsPage />
     </div>
   )
