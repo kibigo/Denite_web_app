@@ -55,4 +55,7 @@
   .carousel-indicators .active {
     background-color: #2c2ea5;
   }
-  
+  .carousel-control-prev:hover,
+  .carousel-control-next:hover {
+  background-color: transparent; /* Set to your desired background color */
+  }
