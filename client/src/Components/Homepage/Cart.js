@@ -73,16 +73,18 @@ function Cart({ cart, setCart, removeFromCart, totalAmount}) {
                   </tr>
                 ))}
               </tbody>
-              <tr className='tr-amount'>
-                <td className='amount'></td>
-                <td className='amount'></td>
-                <td className='amount'></td>
-                <td className='amount'></td>
-                <td className='amount'></td>
-                <td>
-                  Total: {totalAmount().toFixed(2)}
-                </td>
-              </tr>
+              <tbody>
+                <tr className='tr-amount'>
+                  <td className='amount'></td>
+                  <td className='amount'></td>
+                  <td className='amount'></td>
+                  <td className='amount'></td>
+                  <td className='amount'></td>
+                  <td>
+                    Total: {totalAmount().toFixed(2)}
+                  </td>
+                </tr>
+              </tbody>
             </table>
    
         </div>

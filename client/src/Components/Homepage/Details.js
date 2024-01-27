@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import "./Details.css"
 
 export default function Details(props) {
 
@@ -23,7 +24,7 @@ export default function Details(props) {
         <h4>{props.name}</h4>
         {props.weight && <p>Weight: {props.weight}</p>}
         {props.price && <p className="price">Price: {props.price}</p>}
-        <Button className="cta" variant="outline-primary" onClick={handleAddToCart}>
+        <Button className="cta"  onClick={handleAddToCart}>
           ADD
         </Button>
         <p>{props.description}</p>

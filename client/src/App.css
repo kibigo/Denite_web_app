@@ -88,12 +88,14 @@
 
 .price {
   margin-bottom: 10px; /* Add margin to create space between price and button */
+  
 }
 
 
 .cta {
   width: 70.5px;
   position: absolute;
+  margin-top: 10px;
   bottom: 15px; /* Adjust bottom spacing as needed */
   right: 20px; /* Adjust right spacing as needed */
   background-color: transparent;
