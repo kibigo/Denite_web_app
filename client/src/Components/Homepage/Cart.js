@@ -2,12 +2,16 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./Cart.css";
-function Cart({ cart, setCart, removeFromCart, totalAmount}) {
+function Cart({customer, cart, setCart, removeFromCart, totalAmount}) {
 
   const navigate = useNavigate()
 
   const handlePay = () => {
     navigate('/cart/payment')
+  }
+
+  const handleCheckUser = () => {
+    navigate('/login')
   }
 
   return (
@@ -91,7 +95,7 @@ function Cart({ cart, setCart, removeFromCart, totalAmount}) {
       )}
   
       <div className='order-summary'>
-        <button onClick={handlePay}>
+        <button onClick={customer ? (handlePay) : (handleCheckUser)}>
           Pay Now
         </button>
       </div>
@@ -104,48 +108,3 @@ export default Cart;
 
 
 
-
-
-
-
-
-
-// const location = useLocation();
-// const cart = location.state ? location.state.cart : [];
-
-
-// <div>
-//   {/* Header */}
-//   <div className="navbar">
-//     {/* Include the NavBar component */}
-//   </div>
-
-//   {/* Order items */}
-//   <div className="order-list">
-//     {cart.map(item => (
-//       <div key={item.id} className="order-item">
-//         <img src={item.product.image} alt={item.name} className="item-image" />
-//         <div className="item-details">
-//           <div className="item-name">{item.product.name}</div>
-//           <div className="item-description">{item.product.description}</div>
-//           <div className="item-price">${item.product.price}</div>
-//         </div>
-//       </div>
-//     ))}
-
-//     {/* Gray-green lines separating items */}
-//     <hr className="separator" />
-//   </div>
-
-//   {/* Total amount and buttons */}
-//   <div className="order-summary">
-//     <div className="payment-options">
-//       <Link to="/payment">
-//         <button className="pay-now">Pay Now</button>
-//       </Link>
-//       <Link to="/tracking">
-//         <button className="pay-later">Pay Later</button>
-//       </Link>
-//     </div>
-//   </div>
-// </div>

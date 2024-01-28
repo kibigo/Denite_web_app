@@ -107,6 +107,7 @@ class Login(Resource):
         
         response_data = {
             "id":user_existing.id,
+            "name":user_existing.firstname,
             "email":user_existing.email,
             "is_admin":user_existing.is_admin
         }
@@ -120,17 +121,50 @@ class Login(Resource):
 api.add_resource(Login, '/login')
 
 
+class Logout(Resource):
+
+    @staticmethod
+    def delete():
+        session['user_id'] = None
+
+        logout_message ={
+            "message" : "You have been logged out"
+        }
+
+        response = make_response(
+            jsonify(logout_message)
+        )
+
+        return response
+
+api.add_resource(Logout, '/logout')
+
+
+
 class GetUser(Resource):
 
     @staticmethod
     def get():
-        user_details = [user.to_dict() for user in Customer.query.all()]
+        user = session.get('user_id')
 
-        response = make_response(
-            jsonify(user_details)
-        )
+        user_details = Customer.query.filter_by(id=user).first()
 
-        return response
+        if user_details:
+            response_data = {
+                "id":user_details.id,
+                "name":user_details.firstname,
+                "email":user_details.email
+            }
+            response = make_response(
+                jsonify(response_data)
+            )
+
+            return response
+        
+        else:
+            return None
+    
+    
 
 api.add_resource(GetUser, '/user')
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './Login.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-function Login() {
+function Login({setCustomer}) {
 
     const [formData, setFormData] = useState({
         email:"",
@@ -38,7 +38,9 @@ function Login() {
             if (data.is_admin){
                 navigate('/admin')
             }else{
-                navigate('/home')
+                setCustomer(data)
+                navigate('/')
+                
             }
         })
     }
@@ -65,7 +67,7 @@ function Login() {
                 />
 
                 <div className='forgot'>
-                    <a href='/forgotpassword' >Forgot password ?</a>
+                    <Link to='/register'>Do you have an account ?</Link>
                 </div>
             
                 <button className='button' type='submit'>

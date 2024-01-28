@@ -3,10 +3,13 @@ import { Navbar } from './Components/Homepage/Navbar';
 import Footer from './Components/Homepage/Footer';
 import AppRoutes from './AppRoutes';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function App() {
+
+  const [customer, setCustomer] = useState("")
+
   const navigate = useNavigate()
 
   const excludePaths = ['/login', '/register', '/admin', '/admin/team', '/admin/products', '/admin/report']
@@ -44,15 +47,25 @@ function App() {
     return total
   }
 
+  useEffect(() => {
+    fetch('/user')
+    .then((response) => {
+      if (response.ok){
+        response.json()
+        .then((data) => setCustomer(data))
+      }
+    })
+  }, [])
+
   return (
     <div className="App">
       {shouldDisplayNavbarFooter && (
         <div>
-          <Navbar cart={cart} setCart={setCart}/>
+          <Navbar cart={cart} setCart={setCart} customer={customer} setCustomer={setCustomer}/>
         </div>
       )}
       <div className='main-content'>
-        <AppRoutes handleAddToCart={handleAddToCart} totalAmount={totalAmount} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
+        <AppRoutes customer={customer} setCustomer={setCustomer} handleAddToCart={handleAddToCart} totalAmount={totalAmount} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
       </div>
       <Footer />
     </div>

@@ -148,3 +148,11 @@
     background-color: #45a049;
   }
   
+  .navbar_user h1{
+    font-size: medium;
+  }
+
+  .navbar_user button{
+    size: 70%;
+    border-radius: 10px;
+  }

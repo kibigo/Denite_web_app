@@ -21,14 +21,14 @@ import SnacksMunchiesPage from './Components/Homepage/SnacksMunchies';
 import AllCategoriesPage from './Components/Homepage/AllCategories';
 import Mpesa from './Components/Homepage/Mpesa';
 
-function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
+function AppRoutes({customer, setCustomer, handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
 
   return (
     <div className="App">
         <Routes>
 
           <Route path='/register' element={<Register />}/>
-          <Route path='/login' element={<Login />}/>
+          <Route path='/login' element={<Login setCustomer={setCustomer}/>}/>
           <Route path='/' element={<HomePage handleAddToCart={handleAddToCart} />}/>
           <Route path='/top-categories' element={<TopCategoriesPage />}/>
           <Route path='/fruits-and-vegetables' element={<FruitsVegPage handleAddToCart={handleAddToCart}/>}/>
@@ -39,7 +39,7 @@ function AppRoutes({handleAddToCart, totalAmount, removeFromCart, cart, setCart}
           <Route path='/all-fruits' element={<FruitsVegetablesPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/all-drinks' element={<ColdDrinksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/all-snacks' element={<SnacksMunchiesPage handleAddToCart={handleAddToCart}/>}/>
-          <Route path='/cart' element={<Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
+          <Route path='/cart' element={<Cart customer={customer} cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
           <Route path='/cart/payment' element={<Mpesa totalAmount={totalAmount}/>}/>
           <Route path='/admin' element={<Admin />}/>
           <Route path='/admin/team' element={<Team />}/>
