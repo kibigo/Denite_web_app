@@ -1,29 +1,65 @@
-.mpesaPage{
-    background-color: #2BAE66FF;
-    height: 50vh;
-    width: 50%;
-    margin: auto;
-  }
-  
-  .mpesaForm{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .mpesaForm input{
-    width: 60%;
-    height: 25px;
-    margin: auto;
-    margin-top: 10px;
-    border-radius: 5px;
-    text-indent: 10px;
-    background-color: white;
-  }
-  
-  .mpesaForm button{
-    width: 40%;
-    margin: auto;
-    background-color: #F2EDD7FF;
-    color: blue;
-  }
+/* Mpesa.css */
+
+.mpesaPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.mpesacard {
+  width: 100%;
+  margin-top: -200px; 
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+}
+
+.shippingForm,
+.mpesaForm {
+  margin-bottom: 20px;
+}
+
+.shippingForm label,
+.mpesaForm label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.shippingForm input,
+.mpesaForm input {
+  width: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.mpesaForm input{
+  margin: auto;
+  display: flex;
+}
+
+.mpesaForm input[name="phone"],
+.mpesaForm input[name="amount"] {
+  margin-bottom: 20px;
+}
+
+.mpesaForm button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mpesaForm button:hover {
+  background-color: #45a049;
+}

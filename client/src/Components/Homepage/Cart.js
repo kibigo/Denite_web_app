@@ -1,8 +1,9 @@
 // MyOrder.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./Cart.css";
 function Cart({customer, cart, setCart, removeFromCart, totalAmount}) {
+
 
   const navigate = useNavigate()
 
@@ -13,6 +14,7 @@ function Cart({customer, cart, setCart, removeFromCart, totalAmount}) {
   const handleCheckUser = () => {
     navigate('/login')
   }
+
 
   return (
     <div className='selected-cart'>

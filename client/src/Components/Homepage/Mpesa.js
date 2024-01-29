@@ -1,75 +1,136 @@
-import React, { useState } from 'react'
-import './Mpesa.css'
+import React, { useState } from 'react';
+import './Mpesa.css';
 
-function Mpesa({totalAmount}) {
-    const [phone, setPhone] = useState("")
-    const [amount, setAmount] = useState(totalAmount)
+const Mpesa = ({ totalAmount }) => {
+  const [phone, setPhone] = useState('');
+  const [amount, setAmount] = useState(totalAmount);
+  const [name, setName] = useState('');
+  const [county, setCounty] = useState('');
+  const [street, setStreet] = useState('');
+  const [additionalSpecifications, setAdditionalSpecifications] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  const handleNumber = (event) => {
+    setPhone(event.target.value);
+  };
 
-    const [loading, setLoading] = useState(false)
+  const handleAmount = (event) => {
+    setAmount(event.target.value);
+  };
 
-    const handleNumber = (event) => {
-        setPhone(event.target.value)
-    }
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
 
-    const handleAmount = (event) => {
-        setAmount(event.target.value)
-    }
+  const handleCounty = (event) => {
+    setCounty(event.target.value);
+  };
 
-    const submiForm = (event) => {
-        event.preventDefault()
-        setLoading(true)
+  const handleStreet = (event) => {
+    setStreet(event.target.value);
+  };
 
-        fetch('/make_payment', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({phone, amount})
-        })
-        .then((response) => {
-            setLoading(false)
+  const handleAdditionalSpecifications = (event) => {
+    setAdditionalSpecifications(event.target.value);
+  };
 
-            if (response.ok){
-                window.alert('Payment made')
-            } else{
-                window.alert('Payment failed')
-            }
-        })
-        .catch((error) => {
+  const createOrder = (event) => {
+    event.preventDefault()
 
-            setLoading(false)
+    fetch('/orders', {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({name,amount, county, street})
+    })
+    .then((response) => response.json())
+  }
 
-            console.log('This is the error: ', error)
-        })
-    }
+  const submitForm = (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    fetch('/make_payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone, amount }),
+    })
+      .then((response) => {
+        setLoading(false);
+
+        if (response.ok) {
+          window.alert('Payment made');
+        } else {
+          window.alert('Payment failed');
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log('This is the error: ', error);
+      });
+  };
+
   return (
     <div className='mpesaPage'>
-        <h1>Mpesa Payment</h1>
-        <form className='mpesaForm' onSubmit={submiForm}>
-            <input 
-                type='number'
-                placeholder='Enter number'
-                name='phone'
-                value={phone}
-                onChange={handleNumber}
+      <div className='mpesacard'>
+        <h1 className="shipping-header">SHIPPING DETAILS</h1>
+        <form className="shippingForm" onSubmit={(event) => {submitForm(event); createOrder(event)}}>
+          <label>
+            Name:
+            <input
+              type="text"
+              placeholder="Enter name"
+              name="name"
+              value={name}
+              onChange={handleName}
             />
-
-            <input 
-                type='number'
-                placeholder='Enter amount'
-                name='amount'
-                value={amount}
-                onChange={handleAmount}
-                
+          </label>
+          <label>
+            County:
+            <input
+              type="text"
+              placeholder="Enter county"
+              name="county"
+              value={county}
+              onChange={handleCounty}
             />
+          </label>
+          <label>
+            Street:
+            <input
+              type="text"
+              placeholder="Enter street"
+              name="street"
+              value={street}
+              onChange={handleStreet}
+            />
+          </label>
 
-            <button type='submit'>
-                {loading ? 'Processing...' : 'Submit'}
-            </button>
+          <h1 className='header'>PAYMENT INFORMATION</h1>
+
+          <input
+            type='number'
+            placeholder='Enter number'
+            name='phone'
+            value={phone}
+            onChange={handleNumber}
+          />
+          <input
+            type='number'
+            placeholder='Enter amount'
+            name='amount'
+            value={amount}
+            onChange={handleAmount}
+          />
+          <button type='submit'>{loading ? 'Processing...' : 'Submit'}</button>
+
         </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Mpesa
+export default Mpesa;

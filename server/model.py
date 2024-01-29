@@ -86,12 +86,18 @@ class Order(db.Model, SerializerMixin):
     __tablename__ = "orders"
 
     id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
+    county = db.Column(db.String)
+    street = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
-    total_amount = db.Column(db.Integer)
+    total_amount = db.Column(db.Float)
     order_date = db.Column(db.DateTime(), server_default = db.func.now())
 
     orderItem = db.relationship('OrderItem', backref='order_orderItems', lazy = True)
     payment = db.relationship('Payment', backref='order_payments', lazy = True, foreign_keys = 'Payment.order_id')
+
+    def __repr__(self):
+        return f"Total: {self.total_amount}"
 
 
 class OrderItem(db.Model, SerializerMixin):

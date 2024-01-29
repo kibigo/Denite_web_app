@@ -218,8 +218,59 @@ class Product_By_Category(Resource):
 api.add_resource(Product_By_Category, '/category')
 
 
-class Order(Resource):
+class OrderClass(Resource):
+    
+    @staticmethod
+    def post():
+        user = session.get('user_id')
+        name = request.json['name']
+        county = request.json['county']
+        street = request.json['street']
 
+        if user is None:
+
+            response = make_response(
+                jsonify({"Error" : "User not authenticated"}),
+                401
+            )
+            return response
+        
+        total_amount = request.json.get('amount')
+
+        print("AMount received", user)
+
+        if total_amount is None:
+
+            response = make_response(
+                jsonify({"error" : "Amount not provided"}),
+                400
+            )
+            return response
+        
+        new_order = Order(
+            user_id = user,
+            name = name,
+            county = county,
+            street = street,
+            total_amount = total_amount
+        )
+
+        db.session.add(new_order)
+        db.session.commit()
+
+        order_data = {
+            "id":new_order.id,
+            "user_id":new_order.user_id,
+            "total_amount":new_order.total_amount
+        }
+
+        response = make_response(
+            jsonify(order_data),
+            201
+        )
+
+        return response
+    
     @staticmethod
     def get():
         order_list = [item.to_dict() for item in Order.query.all()]
@@ -227,33 +278,8 @@ class Order(Resource):
             jsonify(order_list)
         )
         return response
-    
-    @staticmethod
-    def post():
-        user_id = request.json['user_id']
-        total_amount = request.json['total_amount']
 
-        new_order = Order(
-            user_id = user_id,
-            total_amount = total_amount
-        )
-        db.session.add(new_order)
-        db.session.commit()
-
-        order_data = {
-            "id":new_order.id,
-            "user_id":new_order.user_id,
-            "total_amount": new_order.total_amount,
-            "order_date":new_order.order_date
-        }
-
-        response = make_response(
-            jsonify(order_data)
-        )
-
-        return response
-
-api.add_resource(Order, '/orders')
+api.add_resource(OrderClass, '/orders')
 
 
 class OrderById(Resource):
@@ -407,6 +433,7 @@ class Make_Payment(Resource):
                 jsonify(message)
             )
 
+    
             new_data = Payment(
                 phone = phone_number,
                 amount = amount
