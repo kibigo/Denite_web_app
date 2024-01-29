@@ -61,7 +61,7 @@ function App() {
     <div className="App">
       {shouldDisplayNavbarFooter && (
         <div>
-          <Navbar cart={cart} setCart={setCart} customer={customer} setCustomer={setCustomer}/>
+          <Navbar cart={cart} setCart={setCart} customer={customer} setCustomer={setCustomer} handleAddToCart={handleAddToCart}/>
         </div>
       )}
       <div className='main-content'>
