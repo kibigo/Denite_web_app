@@ -35,12 +35,14 @@ function Login({setCustomer}) {
             }
         })
         .then((data) => {
-            if (data.is_admin){
+            if (data && data.is_admin){
                 navigate('/admin')
-            }else{
+            } else if(data && !data.is_admin){
                 setCustomer(data)
                 navigate('/')
-                
+            }
+            else{
+                window.alert("Wrong credential")
             }
         })
     }

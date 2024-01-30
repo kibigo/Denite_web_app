@@ -148,6 +148,11 @@
   background-color: #10cf1a;
 }
 
+.navbar_user{
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar_user h1{
   font-size: medium;
 }
@@ -155,4 +160,11 @@
 .navbar_user button{
   size: 70%;
   border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.select{
+  width: 80%;
+  background-color: green;
+  color: #fff;
 }

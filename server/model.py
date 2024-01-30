@@ -91,6 +91,7 @@ class Order(db.Model, SerializerMixin):
     street = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     total_amount = db.Column(db.Float)
+    status = db.Column(db.Boolean, default=False, nullable=False)
     order_date = db.Column(db.DateTime(), server_default = db.func.now())
 
     orderItem = db.relationship('OrderItem', backref='order_orderItems', lazy = True)

@@ -100,7 +100,7 @@ class Login(Resource):
             }
             response = make_response(
                 jsonify(message)
-            ), 401
+            ),401
             return response
         
         session['user_id'] = user_existing.id
@@ -226,6 +226,7 @@ class OrderClass(Resource):
         name = request.json['name']
         county = request.json['county']
         street = request.json['street']
+        status = request.json['status']
 
         if user is None:
 
@@ -237,7 +238,6 @@ class OrderClass(Resource):
         
         total_amount = request.json.get('amount')
 
-        print("AMount received", user)
 
         if total_amount is None:
 
@@ -252,7 +252,8 @@ class OrderClass(Resource):
             name = name,
             county = county,
             street = street,
-            total_amount = total_amount
+            total_amount = total_amount,
+            status = status
         )
 
         db.session.add(new_order)
@@ -273,9 +274,27 @@ class OrderClass(Resource):
     
     @staticmethod
     def get():
-        order_list = [item.to_dict() for item in Order.query.all()]
+        current_user_order = session.get('user_id')
+        
+        order_list = Order.query.filter_by(user_id = current_user_order).all()
+
+        all = []
+
+        for item in order_list:
+            orders = {
+                "id":item.id,
+                "name":item.name,
+                "county":item.county,
+                "street":item.street,
+                "total_amount":item.total_amount,
+                "order_date":item.order_date,
+                "status":item.status
+            }
+
+            all.append(orders)
+
         response = make_response(
-            jsonify(order_list)
+            jsonify(all)
         )
         return response
 

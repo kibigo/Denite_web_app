@@ -18,6 +18,8 @@ function App() {
 
   const [cart, setCart] = useState([])
 
+  const [showNotification, setNotification] = useState(false)
+
   const handleAddToCart = (newproduct) => {
     const existingProduct = cart.find((item) => item.product.id == newproduct.id)
 
@@ -31,6 +33,11 @@ function App() {
     else{
       setCart([...cart, {product: newproduct, quantity: 1}])
     }
+
+    setNotification(true)
+    setTimeout(() => {
+      setNotification(false)
+    }, 500)
   }
 
   const removeFromCart = (cartproduct) => {
@@ -52,7 +59,10 @@ function App() {
     .then((response) => {
       if (response.ok){
         response.json()
-        .then((data) => setCustomer(data))
+        .then((data) => {
+          setCustomer(data)
+        })
+      
       }
     })
   }, [])
@@ -65,7 +75,7 @@ function App() {
         </div>
       )}
       <div className='main-content'>
-        <AppRoutes customer={customer} setCustomer={setCustomer} handleAddToCart={handleAddToCart} totalAmount={totalAmount} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
+        <AppRoutes customer={customer} setCustomer={setCustomer} showNotification={showNotification} handleAddToCart={handleAddToCart} totalAmount={totalAmount} removeFromCart={removeFromCart} cart={cart} setCart={setCart}/>
       </div>
       <Footer />
     </div>

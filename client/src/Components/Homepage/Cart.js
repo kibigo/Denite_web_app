@@ -98,7 +98,7 @@ function Cart({customer, cart, setCart, removeFromCart, totalAmount}) {
   
       <div className='order-summary'>
         <button onClick={customer ? (handlePay) : (handleCheckUser)}>
-          Pay Now
+          Check Out
         </button>
       </div>
     </div>

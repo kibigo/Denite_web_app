@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import "./Details.css";
+import "./Details.css"
 
 export default function Details(props) {
-  const [showNotification, setNotification] = useState(false);
+
+  const [showNotification, setNotification] = useState(false)
 
   const handleAddToCart = () => {
-    const newproduct = {
-      id: props.id,
+    const newproduct ={
+      id:props.id,
       name: props.name,
-      price: props.price,
-      imageurl: props.imageurl
-    };
-    props.handleAddToCart(newproduct);
+      price:props.price,
+      imageurl:props.imageurl
 
-    setNotification(true);
+    }
+    props.handleAddToCart(newproduct)
+    
+    setNotification(true)
     setTimeout(() => {
-      setNotification(false);
-    }, 500);
-  };
-
+      setNotification(false)
+    }, 500)
+  }
   return (
     <div>
       <section className="vegetables-fruits">
@@ -30,7 +31,7 @@ export default function Details(props) {
         <h4>{props.name}</h4>
         {props.weight && <p>Weight: {props.weight}</p>}
         {props.price && <p className="price">Price: {props.price}</p>}
-        <Button className="cta" onClick={handleAddToCart}>
+        <Button className="cta"  onClick={handleAddToCart}>
           ADD
         </Button>
         <p>{props.description}</p>
@@ -45,11 +46,12 @@ export default function Details(props) {
               <p>Added to cart</p>
             </div>
           </div>
-        ) : null}
+        ): (null)}
 
       </div>
     </div>
   );
 }
+
 
 export { Details };

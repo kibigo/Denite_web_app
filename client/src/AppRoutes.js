@@ -20,8 +20,9 @@ import ColdDrinksPage from './Components/Homepage/ColdDrinksPage';
 import SnacksMunchiesPage from './Components/Homepage/SnacksMunchies';
 import AllCategoriesPage from './Components/Homepage/AllCategories';
 import Mpesa from './Components/Homepage/Mpesa';
+import MyOrders from './Components/Homepage/MyOrders';
 
-function AppRoutes({customer, setCustomer, handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
+function AppRoutes({showNotification, customer, setCustomer, handleAddToCart, totalAmount, removeFromCart, cart, setCart}) {
 
   return (
     <div className="App">
@@ -35,7 +36,7 @@ function AppRoutes({customer, setCustomer, handleAddToCart, totalAmount, removeF
           <Route path='/cold-drinks-and-juices' element={<DrinksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/snacks-and-munchies' element={<SnacksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/featured-brands' element={<FeaturedBrandsPage />}/>
-          <Route path='/all-categories' element={<AllCategoriesPage handleAddToCart={handleAddToCart} />}/>
+          <Route path='/all-categories' element={<AllCategoriesPage handleAddToCart={handleAddToCart} showNotification={showNotification} />}/>
           <Route path='/all-fruits' element={<FruitsVegetablesPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/all-drinks' element={<ColdDrinksPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/all-snacks' element={<SnacksMunchiesPage handleAddToCart={handleAddToCart}/>}/>
@@ -45,6 +46,7 @@ function AppRoutes({customer, setCustomer, handleAddToCart, totalAmount, removeF
           <Route path='/admin/team' element={<Team />}/>
           <Route path='/admin/products' element={<Products />}/>
           <Route path='/admin/report' element={<Report />}/>
+          <Route path='/myorders' element={<MyOrders />}/>
      
 
         </Routes>

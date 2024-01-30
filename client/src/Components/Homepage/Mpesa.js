@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Mpesa.css';
+import { useNavigate } from 'react-router-dom';
 
 const Mpesa = ({ totalAmount }) => {
   const [phone, setPhone] = useState('');
@@ -7,8 +8,11 @@ const Mpesa = ({ totalAmount }) => {
   const [name, setName] = useState('');
   const [county, setCounty] = useState('');
   const [street, setStreet] = useState('');
+  const [status, setStatus] = useState(true)
   const [additionalSpecifications, setAdditionalSpecifications] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleNumber = (event) => {
     setPhone(event.target.value);
@@ -34,15 +38,14 @@ const Mpesa = ({ totalAmount }) => {
     setAdditionalSpecifications(event.target.value);
   };
 
-  const createOrder = (event) => {
-    event.preventDefault()
+  const createOrder = (statusValue) => {
 
     fetch('/orders', {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
-        body:JSON.stringify({name,amount, county, street})
+        body:JSON.stringify({name,amount, county, street, status:statusValue})
     })
     .then((response) => response.json())
   }
@@ -63,6 +66,7 @@ const Mpesa = ({ totalAmount }) => {
 
         if (response.ok) {
           window.alert('Payment made');
+          navigate('/myorders')
         } else {
           window.alert('Payment failed');
         }
@@ -73,11 +77,16 @@ const Mpesa = ({ totalAmount }) => {
       });
   };
 
+  const paylater = () => {
+    createOrder(false)
+    navigate('/myorders')
+  }
+
   return (
     <div className='mpesaPage'>
       <div className='mpesacard'>
         <h1 className="shipping-header">SHIPPING DETAILS</h1>
-        <form className="shippingForm" onSubmit={(event) => {submitForm(event); createOrder(event)}}>
+        <form className="shippingForm" onSubmit={(event) => {submitForm(event); createOrder(true)}}>
           <label>
             Name:
             <input
@@ -122,12 +131,14 @@ const Mpesa = ({ totalAmount }) => {
             type='number'
             placeholder='Enter amount'
             name='amount'
-            value={amount}
+            value={amount.toFixed(2)}
             onChange={handleAmount}
           />
-          <button type='submit'>{loading ? 'Processing...' : 'Submit'}</button>
+          <button type='submit'>{loading ? 'Processing...' : 'Pay Now'}</button>
+          
 
         </form>
+        <button className='paylater' onClick={paylater}>PayLater</button>
       </div>
     </div>
   );

@@ -25,6 +25,13 @@ export const Navbar = ({cart, customer, setCustomer, handleAddToCart, resetSearc
     })
   }
 
+  const handleOrder = (event) => {
+    const selectedOption = event.target.value
+
+    if (selectedOption === 'myorders'){
+      navigate('/myorders')
+    }
+  }
   return (
     <div className="navbar_navbar">
       <div className="navbar_logo">
@@ -65,6 +72,11 @@ export const Navbar = ({cart, customer, setCustomer, handleAddToCart, resetSearc
           <div className="navbar_user">
             <h1>Welcome {customer.name}</h1>
             <button onClick={handleLogout}>Logout</button>
+
+            <select className="select" onChange={handleOrder}>
+              <option value="">My Account</option>
+              <option value="myorders">Orders</option>
+            </select>
           </div>
         ) : (
           <Link to="/login" className="navbar_login"> Login </Link>
