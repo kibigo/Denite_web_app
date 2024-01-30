@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import Details from './Details';
+// import Details from './Details';
 import './Searchbar.css';
 
-function SearchBar({handleAddToCart, resetSearchKey}) {
+function SearchBar({ handleAddToCart, resetSearchKey }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState('');
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     fetch('/products')
       .then((response) => response.json())
@@ -26,13 +26,13 @@ function SearchBar({handleAddToCart, resetSearchKey}) {
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
-  
+
     // Check if the search word is not empty
     if (searchWord.trim() !== '') {
       const newFilter = data.filter((value) => {
         return value.name.toLowerCase().includes(searchWord.toLowerCase());
       });
-  
+
       setFilteredData(newFilter);
       navigate({ pathname: '/search', state: { filteredData: newFilter } });
     } else {
@@ -40,7 +40,7 @@ function SearchBar({handleAddToCart, resetSearchKey}) {
       setFilteredData([]);
       // Redirect to the home page
       navigate('/');
-    };
+    }
   };
 
   const clearInput = () => {
@@ -49,7 +49,7 @@ function SearchBar({handleAddToCart, resetSearchKey}) {
     setFilteredData([]);
     setWordEntered('');
   };
-  
+
   const resetSearchResults = () => {
     setFilteredData([]);
     setWordEntered('');
@@ -75,16 +75,18 @@ function SearchBar({handleAddToCart, resetSearchKey}) {
       {filteredData.length !== 0 ? (
         <div className="search-searchResultPage">
           {filteredData.map((value) => (
-          <div key={value.id} className="card">
-            <img src={value.imageurl} alt={value.name} />
-            <label>{value.name}</label>
-            <div className="card-details">
-              <p>Category: {value.category}</p>
-              <p>Weight: {value.weight}</p>
-              <p>Price: Kshs.{value.price}</p>
-              <button onClick={() => handleAddToCart(value)}>Add to Cart</button>
+            <div Details>
+              <div key={value.id} className="card">
+                <img src={value.imageurl} alt={value.name} />
+                <label>{value.name}</label>
+                <div className="card-details">
+                  <p>Category: {value.category}</p>
+                  <p>Weight: {value.weight}</p>
+                  <p>Price: Kshs.{value.price}</p>
+                  <button onClick={() => handleAddToCart(value)}>Add to Cart</button>
+                </div>
+              </div>
             </div>
-          </div>
           ))}
         </div>
       ) : null}

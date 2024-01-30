@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./AllCategories.css"
+import Details from './Details';
 
 
 const AllCategoriesPage = ({handleAddToCart}) => {
@@ -135,6 +136,19 @@ const AllCategoriesPage = ({handleAddToCart}) => {
    .filter(product => selectedCategory === 'All' || product.category === selectedCategory)
    .filter(product => selectedPriceRange === 'All' || (selectedPriceRange === 'Low' && product.price < 1) || (selectedPriceRange === 'High' && product.price >= 1));
 
+  
+   const details = filteredProducts.map(product => (
+    <Details
+      key={product.id}
+      id={product.id}
+      name={product.name}
+      imageurl={product.imageurl}
+      price={product.price}
+      description={product.description}
+      weight={product.weight}
+      handleAddToCart={handleAddToCart}
+    />
+  ));
 
 
  return (
