@@ -91,7 +91,7 @@ class Login(Resource):
             }
             response = make_response(
                 jsonify(message)
-            )
+            ), 401
             return response
         
         if not bcrypt.check_password_hash(user_existing.password, password):
@@ -100,7 +100,7 @@ class Login(Resource):
             }
             response = make_response(
                 jsonify(message)
-            )
+            ), 401
             return response
         
         session['user_id'] = user_existing.id
