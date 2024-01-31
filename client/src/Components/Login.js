@@ -35,7 +35,7 @@ function Login({setCustomer}) {
             }
         })
         .then((data) => {
-            if (data && data.is_admin){
+            if (data){
                 setCustomer(data)
                 navigate('/')
             } else{
