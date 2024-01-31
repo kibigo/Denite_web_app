@@ -7,7 +7,7 @@ import datetime
 from flask_bcrypt import Bcrypt
 import base64
 from requests.auth import HTTPBasicAuth
-from model import db, Customer, Product, Order, OrderItem, Favourite, Payment, Review, TopCategory, FeaturedBrands
+from model import db, Customer, Product, Order, Payment, TopCategory, FeaturedBrands
 
 
 app = Flask(__name__)
@@ -168,24 +168,6 @@ class GetUser(Resource):
 
 api.add_resource(GetUser, '/user')
 
-class GetUserById(Resource):
-
-    @staticmethod
-    def get(id):
-        single_user = Customer.query.filter_by(id = id).first()
-        response_data = {
-            "id":single_user.id,
-            "firstname":single_user.firstname,
-            "lastname":single_user.lastname,
-            "phone":single_user.phone,
-            "email":single_user.email,
-            "password":single_user.password
-        }
-        response = make_response(
-            jsonify(response_data)
-        )
-        return response
-api.add_resource(GetUserById, '/user/<int:id>')
 
 class GetProduct(Resource):
 
@@ -256,14 +238,20 @@ class OrderClass(Resource):
             status = status
         )
 
+
         db.session.add(new_order)
         db.session.commit()
+
+        
 
         order_data = {
             "id":new_order.id,
             "user_id":new_order.user_id,
             "total_amount":new_order.total_amount
         }
+
+        session['order_id'] = new_order.id
+
 
         response = make_response(
             jsonify(order_data),
@@ -391,6 +379,8 @@ class Make_Payment(Resource):
         phone_number = args['phone']
         amount = args['amount']
 
+        order_id = session.get('order_id')
+
         consumer_key ="haIzzoBjE6eUAGKu4J9vBvqrEL8l3Dm2"
         consumer_secret = "BCnrl9RpzVu19gM9"
         api_url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
@@ -454,6 +444,7 @@ class Make_Payment(Resource):
 
     
             new_data = Payment(
+                order_id = order_id,
                 phone = phone_number,
                 amount = amount
             )

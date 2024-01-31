@@ -28,7 +28,7 @@ function MyOrders() {
               {record.map((order) => (
                 <tr key={order.id}>
                   <td>{order.id}</td>
-                  <td>{order.total_amount}</td>
+                  <td>{order.total_amount.toFixed(2)}</td>
                   <td>{order.order_date}</td>
                   <td>{order.status == 0 ?('pending'):('paid')}</td>
                 </tr>

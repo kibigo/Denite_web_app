@@ -2,10 +2,6 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Register from './Components/Register';
 import Login from './Components/Login';
-import Admin from './Components/Admin/Admin';
-import Team from './Components/Admin/Team';
-import Products from './Components/Admin/Products';
-import Report from './Components/Admin/Report';
 import HomePage from './Components/Homepage/HomePage';
 import { TopCategoriesPage } from './Components/Homepage/TopCategoriesPart';
 import DrinksPage from './Components/Homepage/CDJHomePage';
@@ -42,10 +38,6 @@ function AppRoutes({showNotification, customer, setCustomer, handleAddToCart, to
           <Route path='/all-snacks' element={<SnacksMunchiesPage handleAddToCart={handleAddToCart}/>}/>
           <Route path='/cart' element={<Cart customer={customer} cart={cart} setCart={setCart} removeFromCart={removeFromCart} totalAmount={totalAmount}/>}/>
           <Route path='/cart/payment' element={<Mpesa totalAmount={totalAmount}/>}/>
-          <Route path='/admin' element={<Admin />}/>
-          <Route path='/admin/team' element={<Team />}/>
-          <Route path='/admin/products' element={<Products />}/>
-          <Route path='/admin/report' element={<Report />}/>
           <Route path='/myorders' element={<MyOrders />}/>
      
 

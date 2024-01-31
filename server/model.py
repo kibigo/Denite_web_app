@@ -19,7 +19,6 @@ class Customer(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime(), server_default = db.func.now())
 
     order = db.relationship('Order', backref = 'customer_orders', lazy = True)
-    favourite = db.relationship('Favourite', backref='customer_favourites', lazy = True)
 
     def __repr__(self):
         return f"Name: {self.firstname} {self.lastname}"
@@ -48,8 +47,7 @@ class Product(db.Model, SerializerMixin):
     quantity = db.Column(db.Integer, nullable = False)
     imageurl = db.Column(db.String, nullable = False)
 
-    favourite = db.relationship('Favourite', backref='product_favourites', lazy = True)
-    review = db.relationship('Review', backref='product_reviews', lazy = True)
+
 
     def __repr__(self):
         return f"Name: {self.name}"
@@ -94,31 +92,11 @@ class Order(db.Model, SerializerMixin):
     status = db.Column(db.Boolean, default=False, nullable=False)
     order_date = db.Column(db.DateTime(), server_default = db.func.now())
 
-    orderItem = db.relationship('OrderItem', backref='order_orderItems', lazy = True)
     payment = db.relationship('Payment', backref='order_payments', lazy = True, foreign_keys = 'Payment.order_id')
 
     def __repr__(self):
         return f"Total: {self.total_amount}"
 
-
-class OrderItem(db.Model, SerializerMixin):
-    __tablename__ = "orderItems"
-
-    id = db.Column(db.Integer, primary_key = True)
-    product_id = db.Column(db.Integer, nullable = False)
-    quantity = db.Column(db.Integer, nullable = False)
-
-    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
-
-class Favourite(db.Model, SerializerMixin):
-    __tablename__ = "favourites"
-
-    id = db.Column(db.Integer, primary_key = True)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-
-    def __repr__(self) -> str:
-        return f"Product_id: {self.product_id}"
 
 class Payment(db.Model, SerializerMixin):
     __tablename__ = "payments"
@@ -132,13 +110,3 @@ class Payment(db.Model, SerializerMixin):
 
     def __repr__(self) -> str:
         return f"Amount paid: {self.amount}"
-    
-class Review(db.Model, SerializerMixin):
-    __tablename__ = "reviews"
-
-    id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer)
-    comment = db.Column(db.String)
-
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))

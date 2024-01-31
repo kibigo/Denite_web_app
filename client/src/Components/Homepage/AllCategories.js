@@ -137,7 +137,7 @@ const AllCategoriesPage = ({handleAddToCart}) => {
    .filter(product => selectedPriceRange === 'All' || (selectedPriceRange === 'Low' && product.price < 1) || (selectedPriceRange === 'High' && product.price >= 1));
 
   
-   const details = filteredProducts.map(product => (
+   const details = filteredProducts.map((product) => (
     <Details
       key={product.id}
       id={product.id}

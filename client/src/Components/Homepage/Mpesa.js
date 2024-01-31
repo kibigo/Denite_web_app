@@ -86,7 +86,7 @@ const Mpesa = ({ totalAmount }) => {
     <div className='mpesaPage'>
       <div className='mpesacard'>
         <h1 className="shipping-header">SHIPPING DETAILS</h1>
-        <form className="shippingForm" onSubmit={(event) => {submitForm(event); createOrder(true)}}>
+        <form className="shippingForm" onSubmit={(event) => {createOrder(true); submitForm(event)}}>
           <label>
             Name:
             <input
