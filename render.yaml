@@ -1,6 +1,6 @@
 services:
   - name: frontend
-    buildCommand: cd frontend && npm install && npm run build
+    buildCommand: cd frontend && yarn install && yarn build
     startCommand: cd frontend && npm start
   - name: backend
     buildCommand: pip install -r backend/requirements.txt
