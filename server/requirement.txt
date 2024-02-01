@@ -1,0 +1,11 @@
+Flask
+flask_sqlalchemy
+flask_restful
+SQLAlchemy
+sqlalchemy_serializer
+flask_cors
+requests
+flask_migrate
+python-dotenv
+psycopg2-binary
+flask_bcrypt 

@@ -1,18 +1,21 @@
 from flask import Flask, make_response, request, jsonify, session
 from flask_migrate import Migrate
 from flask_cors import CORS
+import psycopg2
 from flask_restful import Api, Resource, reqparse
 import requests
 import datetime
 from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
 import base64
 from requests.auth import HTTPBasicAuth
 from model import db, Customer, Product, Order, Payment, TopCategory, FeaturedBrands
 
+load_dotenv()
 
 app = Flask(__name__)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://denite_web_user:2E0lWqTLFtgAybUW98DpLNIzaHLnpE9S@dpg-cmtpnqen7f5s73b1795g-a.oregon-postgres.render.com/denite_web'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
 app.json.compact = False
@@ -444,7 +447,7 @@ class Make_Payment(Resource):
 
     
             new_data = Payment(
-                order_id = order_id,
+                order_number = order_id,
                 phone = phone_number,
                 amount = amount
             )
