@@ -1,0 +1,7 @@
+services:
+  - name: frontend
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+  - name: backend
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:5000 -w 4 backend.app:app
