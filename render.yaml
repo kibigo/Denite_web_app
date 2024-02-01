@@ -1,7 +1,7 @@
 services:
   - name: frontend
     buildCommand: cd frontend && yarn install && yarn build
-    startCommand: cd frontend && npm start
+    startCommand: cd frontend && yarn start
   - name: backend
     buildCommand: pip install -r backend/requirements.txt
     startCommand: gunicorn -b 0.0.0.0:5000 -w 4 backend.app:app
